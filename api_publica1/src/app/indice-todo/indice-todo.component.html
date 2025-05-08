@@ -1,1 +1,43 @@
-<p>indice-todo works!</p>
+<mat-card>
+    <mat-table [dataSource]="todos" class="mat-elevation-z8" *ngIf="todos.length">
+  
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell *matCellDef="let todo"> {{ todo.id }} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Título </mat-header-cell>
+        <mat-cell *matCellDef="let todo"> {{ todo.title }} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="completed">
+        <mat-header-cell *matHeaderCellDef> Completado </mat-header-cell>
+        <mat-cell *matCellDef="let todo">
+          <mat-icon color="{{ todo.completed ? 'primary' : 'warn' }}">
+            {{ todo.completed ? 'check_circle' : 'cancel' }}
+          </mat-icon>
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="acciones">
+        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+        <mat-cell *matCellDef="let todo">
+          <button mat-icon-button (click)="editar(todo)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="eliminar(todo)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnas;"></mat-row>
+    </mat-table>
+  
+    <div *ngIf="todos.length === 0" class="text-muted mt-4 text-center">
+      <p><i class="fa fa-hourglass"></i> No hay usuarios registrados</p>
+    </div>
+  </mat-card>
+  
